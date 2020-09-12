@@ -1,6 +1,8 @@
 const tmi = require('tmi.js');
 const { sub } = require('date-fns');
 
+const identity_password_oath_included = process.env.OAUTH_INCLUDED ? `${process.env.TWITCH_SUB_OAUTH_TOKEN}` : `oauth:${process.env.TWITCH_SUB_OAUTH_TOKEN}`
+
 const parseEmotes = require('../../lib/parseEmotes');
 
 const client = new tmi.Client({
@@ -10,7 +12,7 @@ const client = new tmi.Client({
   },
   identity: {
     username: process.env.TWITCH_CHANNEL_NAME,
-    password: `oauth:${process.env.TWITCH_SUB_OAUTH_TOKEN}`,
+    password: identity_password_oath_included,
   },
   channels: [process.env.TWITCH_CHANNEL_NAME]
 });
